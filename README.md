@@ -1,14 +1,14 @@
 # Content Summarizer Pro 📝
 
-A powerful Streamlit application that generates comprehensive summaries of YouTube videos and web articles using advanced language models.
+A powerful Streamlit application that generates comprehensive summaries of YouTube videos and web articles using advanced language models. Try it out at [Content Summarizer Pro](https://content-summarization-pro-app-az3qwm8zf8gcpkvkbbzhqd.streamlit.app/)!
 
 ## Features 🌟
 
 - **Dual Content Support**: Summarizes both YouTube videos and web articles
 - **Multiple LLM Options**: Choose between different language models:
   - Gemma-7b-it
+  - llama-3.1-8b-instant
   - mixtral-8x7b-32768
-  - llama2-70b-4096
 - **Smart Processing**: Automatically handles different content types
 - **Rich Summaries**: Provides structured summaries with key points and insights
 - **Download Option**: Export summaries as text files
@@ -46,15 +46,18 @@ A powerful Streamlit application that generates comprehensive summaries of YouTu
 - **Frontend**: Built with Streamlit
 - **LLM Integration**: Uses Groq API through LangChain
 - **Text Processing**:
-  - RecursiveCharacterTextSplitter for chunking large texts
+  - RecursiveCharacterTextSplitter (chunk_size=1000, overlap=100)
   - Custom prompt templates for different content types
   - Refine chain type for improved summary quality
+- **Video Processing**: Uses yt-dlp for YouTube video information extraction
+- **Web Scraping**: UnstructuredURLLoader with custom headers for article extraction
 
 ## Requirements 📋
 
 - Python 3.7+
-- Streamlit
-- LangChain
+- streamlit
+- langchain
+- langchain-groq
 - yt-dlp
 - validators
 - Groq API key
@@ -67,12 +70,13 @@ A powerful Streamlit application that generates comprehensive summaries of YouTu
 
 ## Usage 💡
 
-1. Select content type (YouTube Video or Web Article)
-2. Paste the URL
-3. Choose your preferred language model
-4. Click "Generate Summary"
-5. View the generated summary
-6. Download the summary if needed
+1. Visit [Content Summarizer Pro](https://content-summarization-pro-app-az3qwm8zf8gcpkvkbbzhqd.streamlit.app/)
+2. Select content type (YouTube Video or Web Article)
+3. Paste the URL
+4. Choose your preferred language model from the sidebar
+5. Click "🚀 Generate Summary"
+6. View the generated summary in a clean, formatted box
+7. Download the summary as a text file if needed
 
 ## Error Handling ⚠️
 
