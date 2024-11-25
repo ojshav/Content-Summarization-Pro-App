@@ -42,7 +42,7 @@ with st.sidebar:
     st.title("⚙️ Settings")
     model_name = st.selectbox(
         "Select Model",
-        ["Gemma-7b-it", "llama-3.1-8b-instant", "llama2-70b-4096"]
+        ["Gemma-7b-it", "llama-3.1-8b-instant", "llama-3.1-70b-versatile"]
     )
     st.markdown("---")
     st.markdown("### About")
