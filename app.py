@@ -42,7 +42,7 @@ with st.sidebar:
     st.title("⚙️ Settings")
     model_name = st.selectbox(
         "Select Model",
-        ["Gemma-7b-it", "mixtral-8x7b-32768", "llama2-70b-4096"]
+        ["Gemma-7b-it", "llama-3.1-8b-instant", "llama2-70b-4096"]
     )
     st.markdown("---")
     st.markdown("### About")
@@ -154,13 +154,28 @@ if url:
                         PROMPT = PromptTemplate(template=youtube_prompt, input_variables=["text"])
                 else:
                     st.markdown("#### 📥 Downloading article content...")
-                    loader = UnstructuredURLLoader(
-                        urls=[url],
-                        ssl_verify=False,
-                        headers={"User-Agent": "Mozilla/5.0"}
-                    )
-                    docs = loader.load()
-                    PROMPT = PromptTemplate(template=article_prompt, input_variables=["text"])
+                    try:
+                        loader = UnstructuredURLLoader(
+                            urls=[url],
+                            ssl_verify=False,
+                            headers={"User-Agent": "Mozilla/5.0"}
+                        )
+                        docs = loader.load()
+                        
+                        # Check if content was successfully loaded
+                        if not docs or len(docs) == 0:
+                            st.error("❌ Unable to extract content from this article. Please check if the URL is accessible.")
+                            st.stop()
+                            
+                        PROMPT = PromptTemplate(template=article_prompt, input_variables=["text"])
+
+                    except Exception as e:
+                        st.error(f"❌ Failed to load article content: {str(e)}")
+                        st.markdown("Please check if:")
+                        st.markdown("- The URL is accessible")
+                        st.markdown("- The website allows content extraction")
+                        st.markdown("- The article is not behind a paywall")
+                        st.stop()
 
                 # Split and summarize
                 text_splitter = RecursiveCharacterTextSplitter(
